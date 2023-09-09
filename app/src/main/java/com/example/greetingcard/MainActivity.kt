@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LearnLayoutModifiers()
+                    ArticleDetails()
                 }
             }
         }
@@ -48,13 +48,19 @@ class MainActivity : ComponentActivity() {
 fun GreetingImage(modifier: Modifier = Modifier, name: String, from: String) {
     val image = painterResource(id = R.drawable.androidparty)
     Box(modifier = modifier) {
-        Image(painter = image, contentDescription = null, contentScale = ContentScale.Crop, alpha = 0.5F)
+        Image(
+            painter = image,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alpha = 0.5F
+        )
         BirthDayGreetingText(
             name = name,
             from = from,
             modifier
                 .padding(8.dp)
-                .fillMaxSize())
+                .fillMaxSize()
+        )
     }
 }
 
@@ -69,7 +75,7 @@ fun BirthDayGreetingText(name: String, from: String, modifier: Modifier = Modifi
         ) {
         // Adding String Resource
         Text(
-            text = stringResource(R.string.happy_birthday_text) +" ${name}!",
+            text = stringResource(R.string.happy_birthday_text) + " ${name}!",
             fontSize = 100.sp,
             lineHeight = 115.sp,
             textAlign = TextAlign.Center,
@@ -77,9 +83,9 @@ fun BirthDayGreetingText(name: String, from: String, modifier: Modifier = Modifi
         Text(
             text = from,
             fontSize = 35.sp,
-            modifier = modifier
+            modifier = Modifier
                 .padding(16.dp)
-                .align(Alignment.End)
+                .align(alignment = Alignment.CenterHorizontally)
         )
     }
 
@@ -87,7 +93,7 @@ fun BirthDayGreetingText(name: String, from: String, modifier: Modifier = Modifi
 
 // Using Background Color to the text using modifier
 @Composable
-fun LearnLayoutModifiers(modifier: Modifier = Modifier){
+fun LearnLayoutModifiers(modifier: Modifier = Modifier) {
     Text(
         text = "Hello World!",
         modifier = modifier.background(color = Color.Green)
@@ -96,10 +102,35 @@ fun LearnLayoutModifiers(modifier: Modifier = Modifier){
 
 }
 
+
+// Article Design Function Task
+@Composable
+fun ArticleDetails(modifier: Modifier = Modifier) {
+    val image = painterResource(id = R.drawable.bg_compose_background)
+    Column(modifier = modifier) {
+        Image(painter = image, contentDescription = null)
+        Text(
+            text = stringResource(R.string.jetpack_compose_tutorial_title),
+            fontSize = 24.sp,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = stringResource(R.string.jetcompose_first_description),
+            modifier = Modifier.padding(start = 16.dp,end = 16.dp),
+            textAlign = TextAlign.Justify
+        )
+        Text(
+            text = stringResource(R.string.jetcompose_second_description),
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Justify
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     GreetingCardTheme {
-        LearnLayoutModifiers()
+        GreetingImage(name = "Ahmed", from = "From Emma")
     }
 }
