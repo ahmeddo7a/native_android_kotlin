@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,19 +36,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingImage(name = "Ahmed", from = "From Emma")
+                    LearnLayoutModifiers()
                 }
             }
         }
     }
 }
 
+// Adding Image And Using ContentScale to Scale it and Using the Opacity Feature
 @Composable
 fun GreetingImage(modifier: Modifier = Modifier, name: String, from: String) {
     val image = painterResource(id = R.drawable.androidparty)
     Box(modifier = modifier) {
         Image(painter = image, contentDescription = null, contentScale = ContentScale.Crop, alpha = 0.5F)
-        BirthDayGreeting(
+        BirthDayGreetingText(
             name = name,
             from = from,
             modifier
@@ -54,15 +58,18 @@ fun GreetingImage(modifier: Modifier = Modifier, name: String, from: String) {
     }
 }
 
+// Using Column and Learning how to use padding with modifier and Arrangement with Column
 @Composable
-fun BirthDayGreeting(name: String, from: String, modifier: Modifier = Modifier) {
+fun BirthDayGreetingText(name: String, from: String, modifier: Modifier = Modifier) {
+    // Using Column to arrange the children without overlap vertically
     Column(
         modifier = modifier.padding(8.dp),
         verticalArrangement = Arrangement.Center,
 
         ) {
+        // Adding String Resource
         Text(
-            text = "Happy Birthday $name!",
+            text = stringResource(R.string.happy_birthday_text) +" ${name}!",
             fontSize = 100.sp,
             lineHeight = 115.sp,
             textAlign = TextAlign.Center,
@@ -78,10 +85,21 @@ fun BirthDayGreeting(name: String, from: String, modifier: Modifier = Modifier) 
 
 }
 
+// Using Background Color to the text using modifier
+@Composable
+fun LearnLayoutModifiers(modifier: Modifier = Modifier){
+    Text(
+        text = "Hello World!",
+        modifier = modifier.background(color = Color.Green)
+
+    )
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     GreetingCardTheme {
-        GreetingImage(name = "Ahmed", from = "From Emma")
+        LearnLayoutModifiers()
     }
 }
