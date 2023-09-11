@@ -9,8 +9,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ComposableDescription()
+                    BusinessCard()
                 }
             }
         }
@@ -181,6 +185,7 @@ fun ComposableDescription(modifier: Modifier = Modifier){
         }
     }
 }
+//Composable Reusable Card For Composable Description Task
 @Composable
 fun ComposableCard(modifier: Modifier = Modifier,title: String, description: String, myColor: Color){
     Column (
@@ -202,6 +207,84 @@ fun ComposableCard(modifier: Modifier = Modifier,title: String, description: Str
             text = description,
             textAlign = TextAlign.Justify
         )
+    }
+}
+
+//Build Business Card Design Task
+@Composable
+fun BusinessCard(modifier: Modifier = Modifier){
+    Column (
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        titleCard(fullName = "Ahmed Mamdouh", title = "Software Engineer", modifier = modifier.weight(0.7F))
+        ContactInfo(modifier = modifier.weight(0.3F))
+    }
+}
+
+@Composable
+fun titleCard(modifier: Modifier = Modifier, fullName: String, title: String){
+    val image = painterResource(id = R.drawable.pp)
+    Column (
+        modifier = modifier,
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Image(
+            painter = image,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+        Text(
+            text = fullName,
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(5.dp)
+        )
+        Text(
+            text = title,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(5.dp)
+        )
+    }
+}
+
+@Composable
+fun ContactInfo(modifier: Modifier = Modifier, ){
+    Column (
+        modifier = modifier.padding(bottom = 20.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+    ){
+        InfoRow(icon = R.drawable.telephone, title = "+201550815454", modifier = Modifier.padding(bottom = 8.dp))
+        InfoRow(icon = R.drawable.user, title = "@AhmedMamdouh", modifier = Modifier.padding(bottom = 8.dp))
+        InfoRow(icon = R.drawable.mail, title = "dev.ahmed.mm@gmail.com")
+
+    }
+}
+
+@Composable
+fun InfoRow(modifier: Modifier = Modifier, icon: Int, title: String){
+    Row (
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Start,
+
+    ){
+        Icon(
+            painter = painterResource(id = icon),
+            contentDescription = null,
+            modifier = Modifier
+                .height(20.dp)
+                .width(20.dp)
+        )
+        Text(
+            text = title,
+            modifier = Modifier.padding(horizontal = 8.dp)
+        )
+
     }
 }
 
